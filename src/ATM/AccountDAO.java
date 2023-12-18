@@ -1,5 +1,8 @@
 package ATM;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AccountDAO {
 
 	private Account[] accList;
@@ -134,6 +137,14 @@ public class AccountDAO {
 			System.out.println("계좌 번호의 길이가 맞지 않습니다.");
 			return false;
 		}
+		
+		String REGEXP_ACC = "^(\\d{4}-\\d{4}-\\d{4})$";
+		boolean isVaild = Pattern.matches(REGEXP_ACC, accNumber);
+		if(!isVaild) {
+			System.out.println("계좌번호 형식 : [숫자4자리] - [숫자4자리] - [숫자4자리]를 지켜주세요.");
+			return false;
+		}
+		/*
 		for(int i= 0; i < accNumber.length(); i++) {
 			char c = accNumber.charAt(i);
 			if((i == 4 || i == 9)) {
@@ -147,7 +158,7 @@ public class AccountDAO {
 					return false;
 				}
 			}
-		}
+		}*/
 		
 		return true;
 	}
