@@ -25,7 +25,7 @@ public class Util {
 	}
 	
 	private Util(){
-		//SetData(controller);
+		//setData(controller);
 	}
 	
 	public int getIntValue(String str, int start , int end) {
@@ -73,7 +73,7 @@ public class Util {
 		}
 		return val;
 	}
-	private void SetData(BankController controller) {
+	public void setData(BankController controller) {
 		String userdata = "1001/test01/pw1/김철수\n"
 		+ "1002/test02/pw2/이영희\n"
 		+ "1003/test03/pw3/신민수\n"
@@ -89,16 +89,16 @@ public class Util {
 		+ "test03/7777-7777-7777/1000\n"
 		+ "test04/8888-8888-8888/1000";
 		
-		controller.accDAO.ParseData(accountdata);
-		controller.clientDAO.ParseData(userdata);
+		controller.accDAO.parseData(accountdata);
+		controller.clientDAO.parseData(userdata);
 		
 	}
 	
-	public void FileSave(BankController controller) {
+	public void fileSave(BankController controller) {
 		if(controller.clientDAO.getCnt() == 0 ) {
 			System.out.println("저장할 회원 정보가 없습니다.");
 		}else {
-			int result = ListSave("clientListFlie01.txt",controller);
+			int result = listSave("clientListFlie01.txt",controller);
 			if(result == 1) {
 				System.out.println(" 회원 정보가 txt파일로 저장되었습니다.");
 			}
@@ -107,14 +107,14 @@ public class Util {
 		if(controller.accDAO.getCnt() == 0 ) {
 			System.out.println("저장할 계좌 정보가 없습니다.");
 		}else {
-			int result = ListSave("accListFlie01.txt",controller);
+			int result = listSave("accListFlie01.txt",controller);
 			if(result == 1) {
 				System.out.println("성적 정보가 txt파일로 저장되었습니다.");
 			}
 		}
 	}
 	
-    private int ListSave(String fileName, BankController controller) {
+    private int listSave(String fileName, BankController controller) {
 		Object[] itsList = null;
 		if(fileName.equals("clientListFlie01.txt")) {
 			itsList = controller.clientDAO.getClientList();
@@ -138,21 +138,21 @@ public class Util {
 		return 1;
 	}
 	
-    public void FileLoad(BankController controller) {
-		controller.clientDAO.Reset();
+    public void fileLoad(BankController controller) {
+		controller.clientDAO.reset();
 		controller.accDAO.Reset();
 		
-		int result = LoadClientList(controller);
+		int result = loadClientList(controller);
 		if(result == 1) {
 			System.out.println("회원 정보가 로드되었습니다.");
 		}
-		result = LoadAccList(controller);
+		result = loadAccList(controller);
 		if(result == 1) {
 			System.out.println("계좌 정보가 로드되었습니다.");
 		}
 	}
 	
-	private int LoadClientList(BankController controller) {
+	private int loadClientList(BankController controller) {
 		
 		String fileName = "clientListFlie01.txt";
 		File file = new File(CUR_PATH + fileName);
@@ -165,7 +165,7 @@ public class Util {
 			while((next = br.readLine())!= null) {
 				data += next+"\n";
 			}
-			controller.clientDAO.ParseData(data);
+			controller.clientDAO.parseData(data);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -174,7 +174,7 @@ public class Util {
 		return 1;
 	}
 	
-	private int LoadAccList(BankController controller) {
+	private int loadAccList(BankController controller) {
 		String fileName = "accListFlie01.txt";
 		File file = new File(CUR_PATH + fileName);
 		
@@ -186,7 +186,7 @@ public class Util {
 			while((next = br.readLine())!= null) {
 				data += next+"\n";
 			}
-			controller.accDAO.ParseData(data);
+			controller.accDAO.parseData(data);
 				
 		}catch (Exception e) {
 			e.printStackTrace();

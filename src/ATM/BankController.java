@@ -21,6 +21,7 @@ public class BankController {
 		clientDAO = new ClientDAO();
 		log = null;
 		util = Util.getInstance();
+		util.setData(this);
 	}
 	
 	void Run() {
@@ -77,42 +78,42 @@ public class BankController {
 			}else {
 				if(log.equals("admin")) {
 					if(sel == 1) {
-						clientDAO.PrintClientList();
-						accDAO.PrintAccList();;
+						clientDAO.printClientList();
+						accDAO.printAccList();;
 					}else if (sel == 2) {
-						clientDAO.UpdateClient(this);
+						clientDAO.updateClient(this);
 					}else if (sel == 3) {
-						clientDAO.RemoveClient(this);
+						clientDAO.removeClient(this);
 					}else if (sel == 4) {
-						util.FileSave(this);
+						util.fileSave(this);
 					}else if (sel == 5) {
-						util.FileLoad(this);
+						util.fileLoad(this);
 					}else if (sel == 0){
 						log = null;
 					}
 				}else if (log.equals("user")) {
 					if(sel == 1) {
-						log = clientDAO.Register(this);
+						log = clientDAO.register(this);
 					}else if (sel == 2) {
-						log = clientDAO.Login(this);
+						log = clientDAO.login(this);
 					}else if (sel == 0){
 						log = null;
 					}
 				} else {
 					if(sel == 1) {
-						accDAO.Register(this);
+						accDAO.register(this);
 					}else if (sel == 2) {
-						accDAO.RemoveAcc(this);
+						accDAO.removeAcc(this);
 					}else if (sel == 3) {
-						accDAO.Deposit(this);
+						accDAO.deposit(this);
 					}else if (sel == 4) {
-						accDAO.Withdraw(this);
+						accDAO.withdraw(this);
 					}else if (sel == 5) {
-						accDAO.Transfer(this);
+						accDAO.transfer(this);
 					}else if (sel == 6) {
-						log = clientDAO.Quit(this);
+						log = clientDAO.quit(this);
 					}else if (sel == 7) {
-						accDAO.PrintAccListById(log);
+						accDAO.printAccListById(log);
 					}else if (sel == 0){
 						log = null;
 					}

@@ -20,15 +20,15 @@ public class ClientDAO {
 	}
 
 	ClientDAO(){
-		Reset();
+		reset();
 	}
 	
-	public void Reset() {
+	public void reset() {
 		cnt = 0;
 		clientList = null;
 	}
 	
-	public void ParseData(String data) {
+	public void parseData(String data) {
 		String[] clientArr = data.split("\n");
 
 		clientList = new Client[clientArr.length];
@@ -41,7 +41,7 @@ public class ClientDAO {
 
 	}
 	
-	public void PrintClientList() {
+	public void printClientList() {
 		if(cnt == 0) {
 			System.out.println("사용자 정보가 없습니다.");
 			return;
@@ -55,7 +55,7 @@ public class ClientDAO {
 	
 	//사용자메뉴
 	//로그인
-    public String Login(BankController controller) {
+    public String login(BankController controller) {
 		String log = "-1";
 		while(true) {
 			String id = controller.util.getStrValue("아이디 입력 >>");
@@ -78,7 +78,7 @@ public class ClientDAO {
 	
 	//사용자메뉴
 	//회원가입
-	public String Register(BankController controller) {
+	public String register(BankController controller) {
 		String log = null;
 		while (true) {
 			System.out.println("== 회원 가입 ==");
@@ -91,7 +91,7 @@ public class ClientDAO {
 			String newPw = controller.util.getStrValue("비밀번호 입력");
 			String newName = controller.util.getStrValue("이름 입력");
 			
-			AddList(new Client((1000+(cnt+1)), inputId, newPw, newName));
+			addList(new Client((1000+(cnt+1)), inputId, newPw, newName));
 			System.out.println(newName+ "님");
 			System.out.println("회원 가입이 완료되었습니다.");
 			return inputId;
@@ -99,7 +99,7 @@ public class ClientDAO {
 		
 	}
 	
-	private void AddList(Client c) {
+	private void addList(Client c) {
 		if(cnt == 0) {
 			clientList = new Client[cnt+1];
 			clientList[cnt] = c;
@@ -118,7 +118,7 @@ public class ClientDAO {
 	}
 	
 	// 회원 수정
-	public void UpdateClient(BankController controller) {
+	public void updateClient(BankController controller) {
 		if(cnt == 0 ) {
 			System.out.println("사용자 정보가 없습니다.");
 			return;
@@ -142,7 +142,7 @@ public class ClientDAO {
 	}
 	
 	//회원 삭제
-	public void RemoveClient(BankController controller ) {
+	public void removeClient(BankController controller ) {
 		if(cnt == 0 ) {
 			System.out.println("사용자 정보가 없습니다.");
 			return;
@@ -155,15 +155,15 @@ public class ClientDAO {
 				System.out.println("아이디를 찾을 수 없습니다.");
 				continue;
 			}
-			controller.accDAO.RemoveClientById(clientList[idx].getId());
-			RemoveClientAt(idx);
+			controller.accDAO.removeClientById(clientList[idx].getId());
+			removeClientAt(idx);
 			System.out.println("회원 정보가 삭제되었습니다.");
 			
 			break;
 		}
 	}
 	
-	private void RemoveClientAt(int clientIdx) {
+	private void removeClientAt(int clientIdx) {
 		if(cnt == 1) {
 			clientList = null;
 			cnt = 0;
@@ -196,7 +196,7 @@ public class ClientDAO {
 		return idx;
 	}
 	
-	private boolean IsPwExist(String pw) {
+	private boolean isPwExist(String pw) {
 		if(cnt == 0 ) return false;
 		for(int i = 0; i < clientList.length; i++) {
 			if(clientList[i].getPw().equals(pw)) {
@@ -210,7 +210,7 @@ public class ClientDAO {
 	
 	//사용자 메뉴
 	//비밀번호를 입력받아서 일치하면 탈퇴.
-	public String Quit(BankController controller) {
+	public String quit(BankController controller) {
 		while(true) {
 			String pw = controller.util.getStrValue("패스워드 입력 >>");
 			int idx = getIdx(controller.log);
@@ -219,8 +219,8 @@ public class ClientDAO {
 				System.out.println("비밀번호 오류");
 				continue;
 			}
-			controller.accDAO.RemoveClientById(clientList[idx].getId());
-			RemoveClientAt(idx);
+			controller.accDAO.removeClientById(clientList[idx].getId());
+			removeClientAt(idx);
 			System.out.println(name+ "님 회원탈퇴되었습니다.");
 			return null;
 		}
